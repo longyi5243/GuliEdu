@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -66,10 +67,11 @@ public class CrmBannerServiceImpl extends ServiceImpl<CrmBannerMapper, CrmBanner
     }
 
     @Override
+    @Cacheable(value = "banner", key = "'selectIndexList'")
     public List<CrmBanner> getAllBanner() {
         QueryWrapper<CrmBanner> wrapper = new QueryWrapper<>();
         wrapper.eq("is_deleted", 0);
-        wrapper.orderByDesc("id");
+        wrapper.orderByAsc("id");
         wrapper.last("limit 5");
         List<CrmBanner> list = baseMapper.selectList(wrapper);
         return list;
