@@ -40,17 +40,10 @@ public class IndexFrontController {
     @GetMapping("/index")
     public R getAll() {
         //4条名师记录
-        QueryWrapper<EduTeacher> teacherQueryWrapper = new QueryWrapper<>();
-        teacherQueryWrapper.eq("is_deleted", 0);
-        teacherQueryWrapper.orderByDesc("id");
-        teacherQueryWrapper.last("limit 4");
-        List<EduTeacher> teachers = teacherService.list(teacherQueryWrapper);
+        List<EduTeacher> teachers = teacherService.getTeacherRecords();
 
-        QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
-        courseQueryWrapper.eq("is_deleted", 0);
-        courseQueryWrapper.orderByDesc("view_count");
-        courseQueryWrapper.last("limit 8");
-        List<EduCourse> courses = courseService.list(courseQueryWrapper);
+        //8条热门课程
+        List<EduCourse> courses = courseService.getCourseRecords();
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("teachers", teachers);

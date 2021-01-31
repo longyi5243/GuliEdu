@@ -47,7 +47,7 @@ public class BannerAdminController {
      */
     @PostMapping("/save")
     public R save(@RequestBody CrmBanner banner) {
-        crmBannerService.save(banner);
+        crmBannerService.saveBanner(banner);
         return R.ok();
     }
 
@@ -59,7 +59,7 @@ public class BannerAdminController {
      */
     @PutMapping("/update")
     public R update(@RequestBody CrmBanner crmBanner) {
-        crmBannerService.updateById(crmBanner);
+        crmBannerService.updateBannerById(crmBanner);
         return R.ok();
     }
 
@@ -71,7 +71,7 @@ public class BannerAdminController {
      */
     @PostMapping("/remove")
     public R remove(String id) {
-        crmBannerService.removeById(id);
+        crmBannerService.removeBannerById(id);
         return R.ok();
     }
 

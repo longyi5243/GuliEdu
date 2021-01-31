@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -163,5 +164,16 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             throw new GuliException(20001, "删除失败");
         }
 
+    }
+
+    @Override
+    @Cacheable(value = "course",key = "'selectIndexList'")
+    public List<EduCourse> getCourseRecords() {
+        QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
+        courseQueryWrapper.eq("is_deleted", 0);
+        courseQueryWrapper.orderByDesc("view_count");
+        courseQueryWrapper.last("limit 8");
+        List<EduCourse> courses = baseMapper.selectList(courseQueryWrapper);
+        return courses;
     }
 }

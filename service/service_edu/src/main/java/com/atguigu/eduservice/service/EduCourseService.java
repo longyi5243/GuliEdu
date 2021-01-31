@@ -30,4 +30,6 @@ public interface EduCourseService extends IService<EduCourse> {
     Map<String,Object> getCourseListPage(Integer current, Integer limit, CourseQuery courseQuery);
 
     void removeCourse(String courseId);
+
+    List<EduCourse> getCourseRecords();
 }

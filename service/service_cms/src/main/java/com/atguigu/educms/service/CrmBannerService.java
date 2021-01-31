@@ -22,4 +22,9 @@ public interface CrmBannerService extends IService<CrmBanner> {
 
     List<CrmBanner> getAllBanner();
 
+    void saveBanner(CrmBanner banner);
+
+    void updateBannerById(CrmBanner crmBanner);
+
+    void removeBannerById(String id);
 }
