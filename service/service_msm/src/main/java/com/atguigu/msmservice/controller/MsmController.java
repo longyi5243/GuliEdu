@@ -41,7 +41,8 @@ public class MsmController {
         param.put("code", code);
 
         //调用msmService中的方法发送短信
-        boolean isSend = msmService.send(param, phone);
+        //boolean isSend = msmService.send(param, phone);  //该注释是因为没有短信服务
+        boolean isSend = true;
         if (isSend) {
             //发送成功，把发送成功的验证码存到redis中
             //同时设置有效时间
