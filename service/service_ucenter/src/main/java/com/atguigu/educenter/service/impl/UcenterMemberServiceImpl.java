@@ -49,7 +49,7 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
         //判断密码
         //因为库中存储的是加密后的密码，所以先要把输入的密码进行加密，再与数据库中的密码进行比较
-        if (!mobileMember.getPassword().equals(MD5.encrypt(password))) {
+        if (!MD5.encrypt(password).equals(mobileMember.getPassword())) {
             throw new GuliException(20001, "密码错误，登录失败");
         }
 
