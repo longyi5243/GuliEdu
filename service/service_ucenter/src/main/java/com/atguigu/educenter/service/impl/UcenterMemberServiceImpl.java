@@ -80,12 +80,12 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         //获取注册数据
         String code = registerVo.getCode();
         String mobile = registerVo.getMobile();
-        String nikeName = registerVo.getNikeName();
+        String nickName = registerVo.getNickname();
         String password = registerVo.getPassword();
 
         //手机号、密码非空判断
         if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password) ||
-                StringUtils.isEmpty(code) || StringUtils.isEmpty(nikeName)) {
+                StringUtils.isEmpty(code) || StringUtils.isEmpty(nickName)) {
             throw new GuliException(20001, "有数据为空，登录失败");
         }
 
@@ -107,7 +107,7 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         UcenterMember ucenterMember = new UcenterMember();
         ucenterMember.setMobile(mobile);
         ucenterMember.setPassword(MD5.encrypt(password));
-        ucenterMember.setNickname(nikeName);
+        ucenterMember.setNickname(nickName);
         ucenterMember.setIsDisabled(false);
         ucenterMember.setAvatar("https://edu-client.oss-cn-beijing.aliyuncs.com/default.jpg");
 

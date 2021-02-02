@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterVo {
 
-    private String nikeName;
+    private String nickname;
 
     private String mobile;
 
