@@ -48,6 +48,7 @@ public class TeacherFrontController {
         // 2.根据讲师id查询所讲课程
         QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("teacher_id", teacherId);
+        queryWrapper.orderByDesc("gmt_modified");
         List<EduCourse> courseList = courseService.list(queryWrapper);
 
         return R.ok().data("teacher", teacher).data("courseList", courseList);
