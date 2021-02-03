@@ -4,6 +4,7 @@ import com.atguigu.eduservice.entity.EduTeacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,4 +17,6 @@ import java.util.List;
 public interface EduTeacherService extends IService<EduTeacher> {
 
     List<EduTeacher> getTeacherRecords();
+
+    Map<String, Object> pageListWeb(Integer pageNum, Integer pageSize);
 }
