@@ -2,6 +2,7 @@ package com.atguigu.eduservice.service.impl;
 
 import com.atguigu.eduservice.client.VodClient;
 import com.atguigu.eduservice.entity.*;
+import com.atguigu.eduservice.entity.frontvo.CourseFrontVo;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
 import com.atguigu.eduservice.entity.vo.CourseQuery;
@@ -167,7 +168,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     }
 
     @Override
-    @Cacheable(value = "course",key = "'selectIndexList'")
+    @Cacheable(value = "course", key = "'selectIndexList'")
     public List<EduCourse> getCourseRecords() {
         QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
         courseQueryWrapper.eq("is_deleted", 0);
@@ -175,5 +176,54 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         courseQueryWrapper.last("limit 8");
         List<EduCourse> courses = baseMapper.selectList(courseQueryWrapper);
         return courses;
+    }
+
+    @Override
+    public Map<String, Object> getCourseFrontList(long page, long limit, CourseFrontVo courseFrontVo) {
+        Page<EduCourse> coursePage = new Page<>(page, limit);
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+
+        //判断条件是否为空，不为空拼接
+        if (!StringUtils.isEmpty(courseFrontVo.getSubjectParentId())) {  //判断一级分类
+            queryWrapper.eq("subject_parent_id", courseFrontVo.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(courseFrontVo.getSubjectId())) {  //判断二级分类
+            queryWrapper.eq("subject_id", courseFrontVo.getSubjectId());
+        }
+
+        if (!StringUtils.isEmpty(courseFrontVo.getBuyCountSort())) {  //判断关注度
+            queryWrapper.orderByDesc("buy_count");
+        }
+
+        if (!StringUtils.isEmpty(courseFrontVo.getGmtCreateSort())) {
+            queryWrapper.orderByDesc("gmt_create");
+        }
+
+        if (!StringUtils.isEmpty(courseFrontVo.getPriceSort())) {
+            queryWrapper.orderByDesc("price");
+        }
+
+        baseMapper.selectPage(coursePage, queryWrapper);
+
+        List<EduCourse> records = coursePage.getRecords();
+        long current = coursePage.getCurrent();
+        long pages = coursePage.getPages();
+        long size = coursePage.getSize();
+        long total = coursePage.getTotal();
+        boolean hasNext = coursePage.hasNext();
+        boolean hasPrevious = coursePage.hasPrevious();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("pages", pages);
+        map.put("size", size);
+        map.put("total", total);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+
+        return map;
     }
 }
