@@ -3,7 +3,8 @@
 <mapper namespace="com.atguigu.eduservice.mapper.EduCourseMapper">
 
     <!-- 根据课程id查询课程信息 -->
-    <select id="getPublishCourseInfo" resultType="com.atguigu.eduservice.entity.vo.CoursePublishVo" parameterType="String">
+    <select id="getPublishCourseInfo" resultType="com.atguigu.eduservice.entity.vo.CoursePublishVo"
+            parameterType="String">
 		SELECT
 			c.id,
 			c.title,
@@ -22,5 +23,34 @@
 		WHERE
 			c.id = #{couseId}
     </select>
+
+    <select id="getBaseCourseInfo" resultType="CourseWebVo" parameterType="String">
+		SELECT
+			c.id,
+			c.title,
+			c.price,
+			c.lesson_num AS lessonNum,
+			s.id AS subjectLevelOneId,
+			s.title AS subjectLevelOne,
+			ss.id AS subjectLevelTwoId,
+			ss.title AS subjectLevelTwo,
+			t.NAME AS teacherName,
+			c.cover,
+			c.buy_count AS buyCount,
+			c.view_count AS viewCount,
+			d.description,
+			t.id AS teacherId,
+			t.NAME AS teacherName,
+			t.intro,
+			t.avatar
+		FROM
+			edu_course c
+			LEFT JOIN edu_course_description d ON c.id = d.id
+			LEFT JOIN edu_subject s ON c.subject_parent_id = s.id
+			LEFT JOIN edu_subject ss ON c.subject_id = ss.id
+			LEFT JOIN edu_teacher t ON c.teacher_id = t.id
+		WHERE
+			c.id = #{couseId}
+	</select>
 
 </mapper>
