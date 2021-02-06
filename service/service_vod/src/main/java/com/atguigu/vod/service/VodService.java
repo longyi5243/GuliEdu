@@ -15,4 +15,6 @@ public interface VodService {
     void removeVideo(String id);
 
     void removeMoreVideo(List videoList);
+
+    String getPlayAuth(String videoId);
 }

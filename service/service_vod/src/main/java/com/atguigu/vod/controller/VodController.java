@@ -88,4 +88,15 @@ public class VodController {
         return R.ok();
     }
 
+    /**
+     * 获取视频凭证
+     * @param videoId
+     * @return
+     */
+    @GetMapping("/getPlayAuth/{videoId}")
+    public R getPlayAuth(@PathVariable("videoId") String videoId) {
+        String playAuth = vodService.getPlayAuth(videoId);
+        return R.ok().data("playAuth", playAuth);
+    }
+
 }

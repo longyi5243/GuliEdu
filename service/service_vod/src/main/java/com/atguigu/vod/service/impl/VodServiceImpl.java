@@ -9,9 +9,13 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.atguigu.vod.service.VodService;
 import com.atguigu.vod.utils.AliyunVodSDKUtils;
 import com.atguigu.vod.utils.ConstantVodUtils;
+import com.atguigu.vod.utils.VideoUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -98,5 +102,37 @@ public class VodServiceImpl implements VodService {
         } catch (ClientException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getPlayAuth(String id) {
+
+
+        //创建初始化对象
+        DefaultAcsClient client = null;
+        try {
+            client = VideoUtils.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GuliException(20001, "获取视频失败");
+        }
+
+        //创建获取视频地址request和response
+        GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+        GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
+
+        //向request对象中设置视频id
+        request.setVideoId(id);
+
+        //调用初始化对象里的方法，传递request，获取数据
+        try {
+            response = client.getAcsResponse(request);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GuliException(20001, "获取视频失败");
+        }
+
+        //获取播放凭证
+        return response.getPlayAuth();
     }
 }
