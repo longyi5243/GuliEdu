@@ -24,10 +24,10 @@ public class EduCommentController {
      * @param limit
      * @return
      */
-    @GetMapping("/getCommentListPage/{current}/{limit}")
+    @GetMapping("/getCommentListPage/{current}/{limit}/{courseId}")
     public R getCommentListPage(@PathVariable("current") long current,
                                 @PathVariable("limit") long limit,
-                                String courseId) {
+                                @PathVariable("courseId") String courseId) {
         Map<String, Object> map = commentService.getCommentListPage(current, limit, courseId);
         return R.ok().data(map);
     }
