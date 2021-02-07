@@ -69,7 +69,7 @@ public class UcenterMemberController {
     }
 
     /**
-     * 获取会员详细信息
+     * 提供会员详细信息（远程调用）
      * @param token
      */
     @PostMapping("/getInfo/{token}")
