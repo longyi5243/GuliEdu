@@ -68,5 +68,16 @@ public class UcenterMemberController {
         return R.ok().data("userInfo", member);
     }
 
+    /**
+     * 获取会员详细信息
+     * @param token
+     */
+    @PostMapping("/getInfo/{token}")
+    public UcenterMember getInfo(@PathVariable String token){
+        String memberId = JwtUtils.getMemberIdByJwtTokenStr(token);
+        UcenterMember member = memberService.getById(memberId);
+        return member;
+    }
+
 }
 

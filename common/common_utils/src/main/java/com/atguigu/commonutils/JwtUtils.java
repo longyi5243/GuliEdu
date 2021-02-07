@@ -94,4 +94,16 @@ public class JwtUtils {
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
     }
+
+    /**
+     * 根据token字符串获取会员id
+     * @param jwtToken
+     * @return
+     */
+    public static String getMemberIdByJwtTokenStr(String jwtToken) {
+        if(StringUtils.isEmpty(jwtToken)) return "";
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("id");
+    }
 }
