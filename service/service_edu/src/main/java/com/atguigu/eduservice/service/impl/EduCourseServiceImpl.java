@@ -233,4 +233,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         CourseWebVo courseWebVo = baseMapper.getBaseCourseInfo(courseId);
         return courseWebVo;
     }
+
+    @Override
+    public EduCourse getCourseInfoOrder(String courseId) {
+        EduCourse course = baseMapper.selectById(courseId);
+        EduTeacher teacher = teacherService.getById(course.getTeacherId());
+        course.setTeacherName(teacher.getName());
+        return course;
+    }
 }

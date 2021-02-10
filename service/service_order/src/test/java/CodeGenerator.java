@@ -1,5 +1,3 @@
-package com.atguigu.demo;
-
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -52,7 +50,7 @@ public class CodeGenerator {
 
         //包 com.atguigu.eduservice
         pc.setParent("com.atguigu");
-        pc.setModuleName("eduservice"); //模块名
+        pc.setModuleName("eduorder"); //模块名
 
         pc.setController("controller");
         pc.setEntity("entity");
@@ -66,7 +64,7 @@ public class CodeGenerator {
         strategy.setInclude("t_pay_log","t_order");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
-        strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
+        strategy.setTablePrefix("t" + "_"); //生成实体时去掉表前缀
 
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作

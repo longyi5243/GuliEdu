@@ -3,6 +3,8 @@ package com.atguigu.eduorder.service;
 import com.atguigu.eduorder.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 订单 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface OrderService extends IService<Order> {
 
+    String createOrder(String courseId, HttpServletRequest request);
 }

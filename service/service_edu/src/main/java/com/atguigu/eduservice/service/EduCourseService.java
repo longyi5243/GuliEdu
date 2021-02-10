@@ -38,4 +38,6 @@ public interface EduCourseService extends IService<EduCourse> {
     Map<String, Object> getCourseFrontList(long page, long limit, CourseFrontVo courseFrontVo);
 
     CourseWebVo getBaseCourseInfo(String courseId);
+
+    EduCourse getCourseInfoOrder(String courseId);
 }

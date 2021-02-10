@@ -79,5 +79,15 @@ public class UcenterMemberController {
         return member;
     }
 
+    /**
+     * 提供会员详细信息（远程调用）
+     * @param memberId
+     */
+    @PostMapping("/getUserInfoOrder/{memberId}")
+    public UcenterMember getUserInfoOrder(@PathVariable("memberId") String memberId){
+        UcenterMember member = memberService.getById(memberId);
+        return member;
+    }
+
 }
 

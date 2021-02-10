@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.controller.front;
 
 import com.atguigu.commonutils.R;
+import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.chapter.ChapterVo;
 import com.atguigu.eduservice.entity.frontvo.CourseFrontVo;
 import com.atguigu.eduservice.entity.frontvo.CourseWebVo;
@@ -54,6 +55,12 @@ public class CrouseFrontController {
         List<ChapterVo> chapterVideo = chapterService.getChapterVideo(courseId);
 
         return R.ok().data("courseWebVo", courseWebVo).data("chapterVideoList", chapterVideo);
+    }
+
+    @GetMapping("/getCourseInfoOrder/{courseId}")
+    public EduCourse getCourseInfoOrder(@PathVariable("courseId") String courseId) {
+        EduCourse course = courseService.getCourseInfoOrder(courseId);
+        return course;
     }
 
 
