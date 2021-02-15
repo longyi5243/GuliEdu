@@ -1,9 +1,10 @@
 package com.atguigu.eduorder.controller;
 
 
-import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.commonutils.R;
+import com.atguigu.eduorder.entity.Order;
 import com.atguigu.eduorder.service.OrderService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,20 @@ public class OrderController {
     public R createOrder(@PathVariable("courseId") String courseId, HttpServletRequest request) {
         String orderNo = orderService.createOrder(courseId, request);
         return R.ok().data("orderNo", orderNo);
+    }
+
+    /**
+     * 根据订单编号查询订单
+     *
+     * @param orderNo
+     * @return
+     */
+    @GetMapping("/getOrderInfo/{orderNo}")
+    public R getOrderInfo(@PathVariable("orderNo") String orderNo) {
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_no", orderNo);
+        Order order = orderService.getOne(queryWrapper);
+        return R.ok().data("item", order);
     }
 
 }
