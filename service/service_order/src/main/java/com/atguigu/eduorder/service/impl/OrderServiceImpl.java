@@ -1,5 +1,6 @@
 package com.atguigu.eduorder.service.impl;
 
+import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.eduorder.client.CourseClient;
 import com.atguigu.eduorder.entity.EduCourse;
 import com.atguigu.eduorder.entity.UcenterMember;
@@ -35,8 +36,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public String createOrder(String courseId, HttpServletRequest request) {
         //获取会员信息
-//        String memberId = JwtUtils.getMemberIdByJwtToken(request);
-        String memberId = "1356782667089076225";
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+//        String memberId = "1356782667089076225";
         UcenterMember member = ucenterClient.getUserInfoOrder(memberId);
 
         //获取课程信息
