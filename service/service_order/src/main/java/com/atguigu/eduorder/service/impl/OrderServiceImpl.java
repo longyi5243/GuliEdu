@@ -9,6 +9,7 @@ import com.atguigu.eduorder.entity.Order;
 import com.atguigu.eduorder.mapper.OrderMapper;
 import com.atguigu.eduorder.service.OrderService;
 import com.atguigu.eduorder.utils.OrderNoUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         baseMapper.insert(order);
 
         return orderNo;
+    }
+
+    @Override
+    public boolean isBuyCourse(String courseId, String memberId) {
+
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("course_id", courseId);
+        queryWrapper.eq("member_id", memberId);
+        queryWrapper.eq("status", 1);
+        Integer count = baseMapper.selectCount(queryWrapper);
+
+        if (count > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

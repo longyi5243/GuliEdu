@@ -16,4 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface OrderService extends IService<Order> {
 
     String createOrder(String courseId, HttpServletRequest request);
+
+    boolean isBuyCourse(String courseId, String memberId);
 }
