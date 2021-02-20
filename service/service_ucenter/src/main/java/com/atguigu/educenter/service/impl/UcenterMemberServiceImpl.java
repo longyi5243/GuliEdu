@@ -92,15 +92,15 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         //判断验证码  从redis中获取手机号对应的验证码
         String redisCode = redisTemplate.opsForValue().get(mobile);
         if (!code.equals(redisCode)) {
-            throw new GuliException(20001,"验证码错误，注册失败");
+            throw new GuliException(20001, "验证码错误，注册失败");
         }
 
         //判断手机在库中唯一，不可重复
         QueryWrapper<UcenterMember> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("mobile",mobile);
+        queryWrapper.eq("mobile", mobile);
         Integer count = baseMapper.selectCount(queryWrapper);
-        if(count > 0){
-            throw new GuliException(20001,"手机号已存在，注册失败");
+        if (count > 0) {
+            throw new GuliException(20001, "手机号已存在，注册失败");
         }
 
         //数据添加至数据库中
@@ -121,5 +121,11 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         wrapper.eq("openid", openid);
         UcenterMember ucenterMember = baseMapper.selectOne(wrapper);
         return ucenterMember;
+    }
+
+    @Override
+    public Integer countRegister(String day) {
+        Integer count = baseMapper.countRegister(day);
+        return count;
     }
 }

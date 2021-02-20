@@ -70,10 +70,11 @@ public class UcenterMemberController {
 
     /**
      * 提供会员详细信息（远程调用）
+     *
      * @param token
      */
     @PostMapping("/getInfo/{token}")
-    public UcenterMember getInfo(@PathVariable String token){
+    public UcenterMember getInfo(@PathVariable String token) {
         String memberId = JwtUtils.getMemberIdByJwtTokenStr(token);
         UcenterMember member = memberService.getById(memberId);
         return member;
@@ -81,12 +82,25 @@ public class UcenterMemberController {
 
     /**
      * 提供会员详细信息（远程调用）
+     *
      * @param memberId
      */
     @PostMapping("/getUserInfoOrder/{memberId}")
-    public UcenterMember getUserInfoOrder(@PathVariable("memberId") String memberId){
+    public UcenterMember getUserInfoOrder(@PathVariable("memberId") String memberId) {
         UcenterMember member = memberService.getById(memberId);
         return member;
+    }
+
+    /**
+     * 查询某一天的注册人数
+     *
+     * @param day
+     * @return
+     */
+    @GetMapping("/countRegister/{day}")
+    public R countRegister(@PathVariable("day") String day) {
+        Integer count = memberService.countRegister(day);
+        return R.ok().data("countRegister", count);
     }
 
 }
