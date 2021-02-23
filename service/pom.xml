@@ -19,7 +19,6 @@
         <module>service_ucenter</module>
         <module>service_order</module>
         <module>service_statistics</module>
-        <module>service_statistics</module>
         <module>service_acl</module>
     </modules>
 

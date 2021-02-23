@@ -42,5 +42,6 @@ public interface PermissionService extends IService<Permission> {
     //给角色分配权限
     void saveRolePermissionRealtionShipGuli(String roleId, String[] permissionId);
 
+    //递归获取全部菜单
     List<Permission> queryAllMenuSelf();
 }
