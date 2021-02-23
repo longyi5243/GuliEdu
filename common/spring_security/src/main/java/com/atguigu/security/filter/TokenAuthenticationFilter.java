@@ -2,7 +2,7 @@ package com.atguigu.security.filter;
 
 import com.atguigu.commonutils.R;
 import com.atguigu.commonutils.ResponseUtil;
-import com.atguigu.serurity.security.TokenManager;
+import com.atguigu.security.security.TokenManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

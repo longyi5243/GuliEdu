@@ -2,9 +2,9 @@ package com.atguigu.security.filter;
 
 import com.atguigu.commonutils.R;
 import com.atguigu.commonutils.ResponseUtil;
-import com.atguigu.serurity.entity.SecurityUser;
-import com.atguigu.serurity.entity.User;
-import com.atguigu.serurity.security.TokenManager;
+import com.atguigu.security.entity.SecurityUser;
+import com.atguigu.security.entity.User;
+import com.atguigu.security.security.TokenManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
