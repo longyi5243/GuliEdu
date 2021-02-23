@@ -11,12 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
  * 权限 菜单管理
- * </p>
- *
- * @author testjava
- * @since 2020-01-12
  */
 @RestController
 @RequestMapping("/admin/acl/permission")
@@ -26,25 +21,39 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
-    //获取全部菜单
-    @ApiOperation(value = "查询所有菜单")
+    /**
+     * 递归查询所有菜单
+     * @return
+     */
+    @ApiOperation(value = "递归查询所有菜单")
     @GetMapping
     public R indexAllPermission() {
         List<Permission> list =  permissionService.queryAllMenuSelf();
         return R.ok().data("children",list);
     }
 
+    /**
+     * 递归删除菜单
+     * @param id 菜单id
+     * @return
+     */
     @ApiOperation(value = "递归删除菜单")
     @DeleteMapping("remove/{id}")
     public R remove(@PathVariable String id) {
-        permissionService.removeChildByIdGuli(id);
+        permissionService.removeChildByIdSelf(id);
         return R.ok();
     }
 
+    /**
+     * 给角色分配权限
+     * @param roleId  角色id
+     * @param permissionId  菜单id 数组形式
+     * @return
+     */
     @ApiOperation(value = "给角色分配权限")
     @PostMapping("/doAssign")
     public R doAssign(String roleId,String[] permissionId) {
-        permissionService.saveRolePermissionRealtionShipGuli(roleId,permissionId);
+        permissionService.saveRolePermissionRealtionShipSelf(roleId,permissionId);
         return R.ok();
     }
 

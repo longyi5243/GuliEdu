@@ -138,6 +138,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         List<JSONObject> result = MemuHelper.bulid(permissionList);
         return result;
     }
+//
 
     /**
      * 判断用户是否系统管理员
@@ -269,6 +270,9 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         rolePermissionService.saveBatch(rolePermissionList);
     }
 
+
+    //=================================以下是自写功能 (上面是案例)========================================
+
     //获取全部菜单
     @Override
     public List<Permission> queryAllMenuSelf() {
@@ -323,6 +327,54 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         }
 
         return permissionNode;
+    }
+
+    //递归删除菜单
+    @Override
+    public void removeChildByIdSelf(String id) {
+        //1.创建list集合，用于封装所有删除菜单的id
+        ArrayList<String> idList = new ArrayList<>();
+
+        //2.向idList集合设置删除菜单id
+        this.selectPermissionChildById(id, idList);
+
+        //3.批量删除
+        idList.add(id);  //封装当前id本身
+        baseMapper.deleteBatchIds(idList);
+    }
+
+    private void selectPermissionChildById(String id, ArrayList<String> idList) {
+        //查询菜单中的子菜单
+        QueryWrapper<Permission> wrapper = new QueryWrapper<>();
+        wrapper.eq("pid", id);
+        wrapper.select("id");
+        List<Permission> childList = baseMapper.selectList(wrapper);
+
+        //把childList里面的菜单id获取出来，封装到idList里面，做递归查询
+        childList.stream().forEach(child -> {
+            //封装到idList里去
+            String childId = child.getId();
+            idList.add(childId);
+            //递归调用
+            this.selectPermissionChildById(childId, idList);
+        });
+    }
+
+    //给角色分配权限
+    @Override
+    public void saveRolePermissionRealtionShipSelf(String roleId, String[] permissionId) {
+
+        List<RolePermission> rolePermissionList = new ArrayList<>();
+        for (String permId : permissionId) {
+            //RolePermission对象
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setRoleId(roleId);
+            rolePermission.setPermissionId(permId);
+            //封装到rolePermissionList
+            rolePermissionList.add(rolePermission);
+        }
+        //添加到角色菜单关系表
+        rolePermissionService.saveBatch(rolePermissionList);
     }
 
 }
