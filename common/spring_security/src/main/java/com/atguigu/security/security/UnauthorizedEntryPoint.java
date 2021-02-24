@@ -20,6 +20,14 @@ import java.io.IOException;
  */
 public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
+    /**
+     * 用户无权限时，提示该信息
+     * @param request
+     * @param response
+     * @param authException
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {

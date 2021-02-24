@@ -63,6 +63,11 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
+    /**
+     * 从header中获取到token，判断该用户是否有权限操作这个菜单；有权限，则赋予权限；无权限，则提示无权限
+     * @param request
+     * @return
+     */
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         // token置于header里
         String token = request.getHeader("token");
