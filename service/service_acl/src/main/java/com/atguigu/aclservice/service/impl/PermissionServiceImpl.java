@@ -362,19 +362,23 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     //给角色分配权限
     @Override
-    public void saveRolePermissionRealtionShipSelf(String roleId, String[] permissionId) {
+    public void saveRolePermissionRealtionShipSelf(String roleId, String[] permissionIds) {
+
+        rolePermissionService.remove(new QueryWrapper<RolePermission>().eq("role_id", roleId));
+
 
         List<RolePermission> rolePermissionList = new ArrayList<>();
-        for (String permId : permissionId) {
-            //RolePermission对象
+        for (String permissionId : permissionIds) {
+            if (StringUtils.isEmpty(permissionId)) continue;
+
             RolePermission rolePermission = new RolePermission();
             rolePermission.setRoleId(roleId);
-            rolePermission.setPermissionId(permId);
-            //封装到rolePermissionList
+            rolePermission.setPermissionId(permissionId);
             rolePermissionList.add(rolePermission);
         }
-        //添加到角色菜单关系表
         rolePermissionService.saveBatch(rolePermissionList);
     }
+
+
 
 }
