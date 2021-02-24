@@ -66,6 +66,9 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     /**
      * 登录成功
+     * 1、使用用户名生成token
+     * 2、把用户名为key，权限列表为value存入redis中
+     * 3、返回token给前端
      * @param req
      * @param res
      * @param chain
