@@ -35,6 +35,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DefaultPasswordEncoder defaultPasswordEncoder;
     private RedisTemplate redisTemplate;
 
+    //在有参构造器上添加 @Autowired 注解，使该构造器中参数位置的组件可以自动从容器中获取
     @Autowired
     public TokenWebSecurityConfig(UserDetailsService userDetailsService, DefaultPasswordEncoder defaultPasswordEncoder,
                                   TokenManager tokenManager, RedisTemplate redisTemplate) {
