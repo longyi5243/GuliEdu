@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * <p>
- * 未授权的统一处理方式
+ * 未授权的统一处理类
  * </p>
  *
  * @author qy

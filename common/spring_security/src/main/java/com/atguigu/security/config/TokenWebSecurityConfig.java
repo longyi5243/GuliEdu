@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * <p>
- * Security配置类
+ * Security核心配置类
  * </p>
  *
  * @author qy

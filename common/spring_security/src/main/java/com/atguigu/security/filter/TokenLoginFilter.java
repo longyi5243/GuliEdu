@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * 认证过滤器
  * <p>
  * 登录过滤器，继承UsernamePasswordAuthenticationFilter，对用户名密码进行登录校验
  * </p>
